@@ -71,7 +71,7 @@ public class ProductBasket {
     public int gettingSumSpecial() {
         int sumSpec = 0;
         for (Product product : products) {
-            if (product.isSpecial()) {
+            if (product != null && product.isSpecial()) {
                 sumSpec++;
             }
         }
