@@ -1,15 +1,14 @@
 package org.skypro.skyshop.product;
 
-public abstract class Product {
+public abstract class Product implements Searchable {
 
     private final String name;
 
 
     public Product(String productName) {
         this.name = productName;
-        //this.price = price;
-    }
 
+    }
 
     public String getName() {
         return name;
@@ -19,8 +18,31 @@ public abstract class Product {
 
     @Override
     public String toString() {
-        return name; //+ ": " + price;
+        return name;
     }
 
     public abstract boolean isSpecial();
+
+
+    //3
+    @Override
+    public String getSearchTerm() {
+        return getName();
+    }
+    //3
+    @Override
+    public String getContentType() {
+        return "PRODUCT";
+    }
+
+    //3  ????
+    @Override
+    public String getObjectName() {
+        return this.name;
+    }
+
+    @Override
+    public String getStringRepresentation() {
+        return Searchable.super.getStringRepresentation();
+    }
 }
