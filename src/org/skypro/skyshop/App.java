@@ -1,10 +1,10 @@
 package org.skypro.skyshop;
 
 import org.skypro.skyshop.basket.ProductBasket;
-import org.skypro.skyshop.product.DiscountedProduct;
-import org.skypro.skyshop.product.FixPriceProduct;
-import org.skypro.skyshop.product.Product;
-import org.skypro.skyshop.product.SimpleProduct;
+import org.skypro.skyshop.product.*;
+
+import java.util.Arrays;
+
 
 public class App {
 
@@ -60,6 +60,34 @@ public class App {
 
         System.out.println("Поиск товара по имени в пустой корзине");
         System.out.println(prBasket.findProduct("сахар"));
+
+        
+        System.out.println("Создание объекта типа SearchEngine");
+        SearchEngine searchOne = new SearchEngine(10);
+
+
+        Searchable breadS = new Article("хлеб","История хлеба началась задолго до письменности");
+        Searchable riceS = new Article("рис", "Одно из древнейших и важнейших зерновых растений");
+        Searchable sugarS = new Article("сахар", "Пищевой продукт со сладким вкусом");
+        Searchable carrotS = new Article("морковь", "Широко распространённая овощная культура");
+
+
+        searchOne.clearSearhable();
+
+
+        searchOne.add(breadS);
+        searchOne.add(riceS);
+        searchOne.add(sugarS);
+        searchOne.add(carrotS);
+        searchOne.add(bread);
+        searchOne.add(rice);
+        searchOne.add(sugar);
+        searchOne.add(carrot);
+        searchOne.add(onion);
+        searchOne.add(potato);
+
+        //System.out.println(searchOne);
+        System.out.println(Arrays.toString(searchOne.search(rice.getSearchTerm())));
 
 
     }
