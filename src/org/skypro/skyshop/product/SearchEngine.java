@@ -85,7 +85,7 @@ public class SearchEngine {
         for (Searchable searchable : searchables) {
            int numberS = getNumberSubstrings(searchable,searchTerm);
             if (bestNumberS < numberS) {
-                bestNumberS++;
+                bestNumberS = numberS;
                 bestResObj = searchable;
             }
         }
