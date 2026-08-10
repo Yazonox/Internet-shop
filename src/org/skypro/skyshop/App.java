@@ -72,7 +72,7 @@ public class App {
         Searchable carrotS = new Article("морковь", "Широко распространённая овощная культура");
 
 
-        searchOne.clearSearhable();
+        searchOne.clearSearchable();
 
 
         searchOne.add(breadS);
@@ -88,6 +88,57 @@ public class App {
 
         //System.out.println(searchOne);
         System.out.println(Arrays.toString(searchOne.search(rice.getSearchTerm())));
+
+
+        System.out.println("Проверка исключений");
+
+
+        try {
+            SimpleProduct salt = new SimpleProduct(null, 25);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            SimpleProduct pears = new SimpleProduct("груши", -120);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            DiscountedProduct plum = new DiscountedProduct("слива", -80, 20);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            DiscountedProduct tomato = new DiscountedProduct("помидор", 30, -60);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+
+        System.out.println("Запрос, когда нужный объект существует");
+
+        String searchIt = "хлеб";
+        try {
+            Searchable searchProd = searchOne.searchBestResult(searchIt);
+            System.out.println(searchProd);
+        } catch (BestResultNotFound e) {
+            System.out.println("По запросу: <<" + searchIt + ">> ничего не найдено.");
+        }
+
+        System.out.println("Запрос, выбрасывающий исключение");
+
+        String searchIt1 = "помидор";
+        try {
+            Searchable searchProd = searchOne.searchBestResult(searchIt1);
+            System.out.println(searchProd);
+        } catch (BestResultNotFound e) {
+            System.out.println("По запросу: <<" + searchIt1 + ">> ничего не найдено.");
+        }
+
+
+
 
 
     }

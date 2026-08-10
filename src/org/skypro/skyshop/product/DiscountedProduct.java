@@ -8,8 +8,16 @@ public class DiscountedProduct extends Product {
 
     public DiscountedProduct(String productName, int basePrice, int discountWholePercent) {
         super(productName);
-        this.basePrice = basePrice;
-        this.discount = discountWholePercent;
+        if (basePrice > 0) {
+            this.basePrice = basePrice;
+        } else {
+            throw new IllegalArgumentException("Неверное значение базовой цены продукта");
+        }
+        if (discountWholePercent >= 0 && discountWholePercent <= 100) {
+            this.discount = discountWholePercent;
+        } else {
+            throw new IllegalArgumentException("Неверное значение процента скидки");
+        }
     }
 
     @Override
