@@ -5,7 +5,12 @@ public class SimpleProduct extends Product {
 
     public SimpleProduct(String productName, int price) {
         super(productName);
-        this.price = price;
+        if (price > 0) {
+            this.price = price;
+        } else {
+            throw  new IllegalArgumentException("Неверно введена цена продукта");
+        }
+
     }
 
     @Override

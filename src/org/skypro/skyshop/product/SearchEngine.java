@@ -47,7 +47,7 @@ public class SearchEngine {
         }
     }
 
-    public void clearSearhable() {
+    public void clearSearchable() {
         for (int i = 0; i < searchables.length; i++) {
             searchables[i] = null;
         }
@@ -56,5 +56,44 @@ public class SearchEngine {
     @Override
     public String toString() {
         return Arrays.toString(searchables);
+    }
+
+
+
+    // Метод получения количества повторений подстроки
+    public int getNumberSubstrings(Searchable obj, String searchT) {
+           String  str = obj.getSearchTerm();
+           String substring = searchT;
+           int number = 0;
+           int ind = 0;
+           int indSubstr = str.indexOf(substring, ind);
+
+        while (indSubstr != -1) {
+            number++;
+            ind = indSubstr + substring.length();
+            indSubstr = str.indexOf(substring, ind);
+        }
+        return number;
+
+    }
+
+
+    // Метод поиска самого подходящего элемента
+    public Searchable searchBestResult(String searchTerm) throws BestResultNotFound {
+        Searchable bestResObj = null;
+        int bestNumberS = 0;
+        for (Searchable searchable : searchables) {
+           int numberS = getNumberSubstrings(searchable,searchTerm);
+            if (bestNumberS < numberS) {
+                bestNumberS = numberS;
+                bestResObj = searchable;
+            }
+        }
+
+        if (bestResObj != null) {
+            return bestResObj;
+        } else {
+            throw new BestResultNotFound("Совпадения не найдены");
+        }
     }
 }
