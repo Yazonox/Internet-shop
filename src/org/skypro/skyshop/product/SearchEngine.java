@@ -1,72 +1,63 @@
 package org.skypro.skyshop.product;
 
-import java.util.Arrays;
+import java.util.*;
 
 public class SearchEngine {
-    private Searchable[] searchables;
+    private List<Searchable> searchables;
 
-    public SearchEngine( int i) {         //Searchable[] searchables
-        this.searchables = new Searchable[i];
+
+    //Конструктор
+    public SearchEngine() {
+        this.searchables = new LinkedList<>();
     }
-
 
 
     //принимает в себя строку для поиска и возвращает 5 результатов поиска по массиву
     //Searchable в виде массива из 5 элементов.
-    public Searchable[] search(String searchTerm) {
-            int i = 0;
-        Searchable[] rezultSearch = new Searchable[5];
+    public List<Searchable> search(String searchTerm) {
+
+        List<Searchable> rezultSearch = new LinkedList<>();
         for (Searchable searchable : searchables) {
             if (searchable != null && (searchable.getSearchTerm()).contains(searchTerm)) {
-                rezultSearch[i] = searchable;
-                //System.out.println("Добавлен в Search");
-                if (i == 4) {
-                    System.out.println("Свободные ячейки закончились");
-                    break;
-                } else {
-                    i++;
-                }
+                rezultSearch.add(searchable);
+
+
             }
         }
         return rezultSearch;
     }
 
     //добавляет новый объект типа Searchable в массив поискового движка.
-    public  void add(Searchable obj) {
-        int check = 0;
-        for (int i = 0; i < searchables.length; i++) {
-            if (searchables[i] == null) {
-                searchables[i] = obj;
-                check = 1;
-                //System.out.println("Добавлен");
-                break;
-            }
-        }
-        if (check == 0) {
-            System.out.println("Не удалось добавить объект. Массив заполнен.");
+    public void add(Searchable obj) {
+        if (obj != null) {
+            searchables.add(obj);
+        } else {
+            System.out.println("Объект не добавлен");
         }
     }
 
+
     public void clearSearchable() {
-        for (int i = 0; i < searchables.length; i++) {
-            searchables[i] = null;
+        Iterator<Searchable> iterator = searchables.iterator();
+        while (iterator.hasNext()) {
+            Searchable element = iterator.next();
+            iterator.remove();
         }
     }
 
     @Override
     public String toString() {
-        return Arrays.toString(searchables);
+        return searchables.toString();
     }
-
 
 
     // Метод получения количества повторений подстроки
     public int getNumberSubstrings(Searchable obj, String searchT) {
-           String  str = obj.getSearchTerm();
-           String substring = searchT;
-           int number = 0;
-           int ind = 0;
-           int indSubstr = str.indexOf(substring, ind);
+        String str = obj.getSearchTerm();
+        String substring = searchT;
+        int number = 0;
+        int ind = 0;
+        int indSubstr = str.indexOf(substring, ind);
 
         while (indSubstr != -1) {
             number++;
@@ -83,7 +74,7 @@ public class SearchEngine {
         Searchable bestResObj = null;
         int bestNumberS = 0;
         for (Searchable searchable : searchables) {
-           int numberS = getNumberSubstrings(searchable,searchTerm);
+            int numberS = getNumberSubstrings(searchable, searchTerm);
             if (bestNumberS < numberS) {
                 bestNumberS = numberS;
                 bestResObj = searchable;
