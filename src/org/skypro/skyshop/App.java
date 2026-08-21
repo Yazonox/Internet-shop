@@ -4,6 +4,7 @@ import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.*;
 
 import java.util.Arrays;
+import java.util.List;
 
 
 public class App {
@@ -30,9 +31,6 @@ public class App {
         prBasket.addProduct(bread);
         prBasket.addProduct(onion);
         prBasket.addProduct(sugar);
-
-
-        System.out.println("Добавление продукта в заполненную корзину, в которой нет свободного места");
         prBasket.addProduct(potato);
 
 
@@ -46,7 +44,7 @@ public class App {
         System.out.println(prBasket.findProduct("рис"));
 
         System.out.println("Поиск товара, которого нет в корзине");
-        System.out.println(prBasket.findProduct("картофель"));
+        System.out.println(prBasket.findProduct("абрикос"));
 
         System.out.println("Очистка корзины");
         prBasket.clearBasket();
@@ -63,7 +61,7 @@ public class App {
 
         
         System.out.println("Создание объекта типа SearchEngine");
-        SearchEngine searchOne = new SearchEngine(10);
+        SearchEngine searchOne = new SearchEngine();
 
 
         Searchable breadS = new Article("хлеб","История хлеба началась задолго до письменности");
@@ -87,7 +85,7 @@ public class App {
         searchOne.add(potato);
 
         //System.out.println(searchOne);
-        System.out.println(Arrays.toString(searchOne.search(rice.getSearchTerm())));
+        System.out.println(searchOne.search(rice.getSearchTerm()));
 
 
         System.out.println("Проверка исключений");
@@ -137,6 +135,41 @@ public class App {
             System.out.println("По запросу: <<" + searchIt1 + ">> ничего не найдено.");
         }
 
+
+        System.out.println();
+        System.out.println();
+        System.out.println("Удаление продукта по имени из корзины");
+        //_______________________________
+        prBasket.addProduct(carrot);
+        prBasket.addProduct(rice);
+        prBasket.addProduct(bread);
+        prBasket.addProduct(bread);
+        prBasket.addProduct(onion);
+        prBasket.addProduct(sugar);
+        prBasket.addProduct(potato);
+
+        System.out.println();
+        System.out.println("1. Удалить существующий продукт из корзины");
+        List printBasket = prBasket.removeByName("хлеб");
+
+        System.out.println();
+        System.out.println("2. Вывести удаленные продукты на экран");
+        System.out.println(printBasket.toString());
+
+        System.out.println();
+        System.out.println("3. Вывести содержимое корзины с помощью метода printBasket");
+        prBasket.printBasket();
+
+        System.out.println();
+        System.out.println("4. Удалить несуществующий продукт");
+        System.out.println("5. Проверить, что список удаленных продуктов пустой и вывести сообщение “Список пуст”.");
+        prBasket.removeByName("апельсин");
+
+        System.out.println();
+        System.out.println("6. Вывести содержимое корзины на экран.");
+        prBasket.printBasket();
+
+        prBasket.clearBasket();
 
 
 
