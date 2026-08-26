@@ -3,6 +3,7 @@ package org.skypro.skyshop;
 import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.*;
 
+import java.io.DataInputStream;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class App {
         SimpleProduct onion = new SimpleProduct("лук", 40);
         DiscountedProduct sugar = new DiscountedProduct("сахар", 70, 20);
         SimpleProduct potato = new SimpleProduct("картофель", 65);
+        DiscountedProduct potato2 = new DiscountedProduct("картофель", 65, 20);
 
 
         ProductBasket prBasket = new ProductBasket();
@@ -32,6 +34,8 @@ public class App {
         prBasket.addProduct(onion);
         prBasket.addProduct(sugar);
         prBasket.addProduct(potato);
+
+
 
 
         System.out.println("Печать содержимого корзины с несколькими товарами");
@@ -68,6 +72,10 @@ public class App {
         Searchable riceS = new Article("рис", "Одно из древнейших и важнейших зерновых растений");
         Searchable sugarS = new Article("сахар", "Пищевой продукт со сладким вкусом");
         Searchable carrotS = new Article("морковь", "Широко распространённая овощная культура");
+        Searchable potatoS = new Article("картофель", "По пищевой ценности картофель  близок к хлебу");
+        Searchable beanS = new Article("фасоль", "Как источник растительного белка фасоль сравнивают с хлебом");
+
+
 
 
         searchOne.clearSearchable();
@@ -77,6 +85,8 @@ public class App {
         searchOne.add(riceS);
         searchOne.add(sugarS);
         searchOne.add(carrotS);
+        searchOne.add(potatoS);
+        searchOne.add(beanS);
         searchOne.add(bread);
         searchOne.add(rice);
         searchOne.add(sugar);
@@ -84,9 +94,15 @@ public class App {
         searchOne.add(onion);
         searchOne.add(potato);
 
-        //System.out.println(searchOne);
-        System.out.println(searchOne.search(rice.getSearchTerm()));
 
+        //System.out.println(searchOne);
+        System.out.println();
+        System.out.println();
+        System.out.println("Поисковый запрос");
+        //System.out.println(searchOne.search("хлеб"));
+        searchOne.printSearch(searchOne.search("хлеб"));
+        System.out.println();
+        System.out.println();
 
         System.out.println("Проверка исключений");
 
@@ -147,10 +163,14 @@ public class App {
         prBasket.addProduct(onion);
         prBasket.addProduct(sugar);
         prBasket.addProduct(potato);
+        prBasket.addProduct(potato2);
+
+
+        prBasket.printBasket();
 
         System.out.println();
         System.out.println("1. Удалить существующий продукт из корзины");
-        List printBasket = prBasket.removeByName("хлеб");
+        List<Product> printBasket = prBasket.removeByName("хлеб");
 
         System.out.println();
         System.out.println("2. Вывести удаленные продукты на экран");

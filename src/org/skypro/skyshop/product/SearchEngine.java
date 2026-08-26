@@ -14,14 +14,13 @@ public class SearchEngine {
 
     //принимает в себя строку для поиска и возвращает 5 результатов поиска по массиву
     //Searchable в виде массива из 5 элементов.
-    public List<Searchable> search(String searchTerm) {
+    public Map<String,Searchable> search(String searchTerm) {
 
-        List<Searchable> rezultSearch = new LinkedList<>();
+
+        Map<String,Searchable> rezultSearch = new TreeMap<>();
         for (Searchable searchable : searchables) {
             if (searchable != null && (searchable.getSearchTerm()).contains(searchTerm)) {
-                rezultSearch.add(searchable);
-
-
+                rezultSearch.put(searchable.getObjectName(),searchable);
             }
         }
         return rezultSearch;
@@ -87,4 +86,12 @@ public class SearchEngine {
             throw new BestResultNotFound("Совпадения не найдены");
         }
     }
+
+    public void printSearch(Map<String,Searchable> search) {
+        for (Map.Entry<String,Searchable> m : search.entrySet()) {
+            System.out.println(m.getValue());
+        }
+    }
+
+
 }
