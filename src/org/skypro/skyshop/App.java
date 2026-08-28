@@ -69,7 +69,7 @@ public class App {
 
 
         Searchable breadS = new Article("хлеб","История хлеба началась задолго до письменности");
-        Searchable riceS = new Article("рис", "Одно из древнейших и важнейших зерновых растений");
+        Searchable riceS = new Article("рис", "В китайской культуре рис часто сравнивают с хлебом ");
         Searchable sugarS = new Article("сахар", "Пищевой продукт со сладким вкусом");
         Searchable carrotS = new Article("морковь", "Широко распространённая овощная культура");
         Searchable potatoS = new Article("картофель", "По пищевой ценности картофель  близок к хлебу");
@@ -98,7 +98,9 @@ public class App {
         //System.out.println(searchOne);
         System.out.println();
         System.out.println();
-        System.out.println("Поисковый запрос");
+        System.out.println("Поисковый запрос:");
+        System.out.println();
+
         //System.out.println(searchOne.search("хлеб"));
         searchOne.printSearch(searchOne.search("хлеб"));
         System.out.println();
