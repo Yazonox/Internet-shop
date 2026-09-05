@@ -3,24 +3,23 @@ package org.skypro.skyshop.product;
 import java.util.*;
 
 public class SearchEngine {
-    private List<Searchable> searchables;
+    private Set<Searchable> searchables;
 
 
     //Конструктор
     public SearchEngine() {
-        this.searchables = new LinkedList<>();
+        this.searchables = new HashSet<>();
     }
 
 
     //принимает в себя строку для поиска и возвращает 5 результатов поиска по массиву
     //Searchable в виде массива из 5 элементов.
-    public Map<String,Searchable> search(String searchTerm) {
+    public Set<Searchable> search(String searchTerm) {
 
-
-        Map<String,Searchable> rezultSearch = new TreeMap<>();
+        Set<Searchable> rezultSearch = new TreeSet<>(new SearchEngineComparator());
         for (Searchable searchable : searchables) {
             if (searchable != null && (searchable.getSearchTerm()).contains(searchTerm)) {
-                rezultSearch.put(searchable.getObjectName(),searchable);
+                rezultSearch.add(searchable);
             }
         }
         return rezultSearch;
@@ -35,13 +34,9 @@ public class SearchEngine {
         }
     }
 
-
+    //Очистка поискового массива
     public void clearSearchable() {
-        Iterator<Searchable> iterator = searchables.iterator();
-        while (iterator.hasNext()) {
-            Searchable element = iterator.next();
-            iterator.remove();
-        }
+        searchables.clear();
     }
 
     @Override
@@ -86,10 +81,25 @@ public class SearchEngine {
             throw new BestResultNotFound("Совпадения не найдены");
         }
     }
+    //Печать результата поиска (search())
 
-    public void printSearch(Map<String,Searchable> search) {
-        for (Map.Entry<String,Searchable> m : search.entrySet()) {
-            System.out.println(m.getValue());
+    public void printSearch(Set<Searchable> search) {
+        for (Searchable element : search) {
+            System.out.println(element);
+        }
+    }
+
+
+    //Компаратор
+    public static class SearchEngineComparator implements Comparator<Searchable> {
+
+        public int compare(Searchable s1, Searchable s2) {
+            int rezCompare = Integer.compare((s2.getObjectName()).length(), (s1.getObjectName()).length());
+            if (rezCompare == 0) {
+                return s1.getObjectName().compareTo(s2.getObjectName());
+            } else {
+                return rezCompare;
+            }
         }
     }
 

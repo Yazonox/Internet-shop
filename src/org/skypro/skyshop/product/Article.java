@@ -1,6 +1,8 @@
 package org.skypro.skyshop.product;
 
-public class Article implements Searchable {
+import java.util.Objects;
+
+public class Article implements Searchable, Comparable<Article> {
     private final String artName;
     private final String artText;
 
@@ -38,6 +40,25 @@ public class Article implements Searchable {
     @Override
     public String getObjectName() {
         return this.artName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if  (!(o instanceof Article article)) return false;
+        return Objects.equals(artName, article.artName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(artName);
+    }
+
+    @Override
+    public int compareTo(Article o) {
+        return this.getArtName().compareTo(o.getArtName());
     }
 }
 
