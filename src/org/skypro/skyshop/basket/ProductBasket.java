@@ -31,31 +31,31 @@ public class ProductBasket {
 
         } else {
 
-            for (Map.Entry<String, List<Product>> prodM : products.entrySet()) {
-                List<Product> productsL = prodM.getValue();
-                for (Product prodL : productsL) {
-                    cost += prodL.getPrice();
-                }
-            }
+
+            cost = products.values().stream().flatMap(Collection::stream)
+                    .mapToInt(Product::getPrice)
+                    .sum();
+
         }
         return cost;
     }
 
 
-    //Вывод продуктов в корзине на экран
+
+
+
+
     public void printBasket() {
         if (products.isEmpty()) {
             System.out.println("В корзине пусто");
         } else {
-            for (Map.Entry<String, List<Product>> prodM : products.entrySet()) {
-                List<Product> productsL = prodM.getValue();
-                for (Product prodL : productsL) {
-                    System.out.println(prodL);
-                }
-            }
-            System.out.println("Количество специальных товаров: " + gettingSumSpecial());
+
+            products.values().stream().flatMap(Collection::stream).forEach(System.out::println);
+
+            System.out.println("Количество специальных товаров: " + getSpecialCount());
         }
     }
+
 
 
     //Проверка наличия продукта в корзине
@@ -70,19 +70,13 @@ public class ProductBasket {
     }
 
 
-    //Расчет количества специальных товаров
-    public int gettingSumSpecial() {
-        int sumSpec = 0;
-        for (Map.Entry<String, List<Product>> prodM : products.entrySet()) {
-            List<Product> productsL = prodM.getValue();
-            for (Product prodL : productsL) {
-                if (prodL != null && prodL.isSpecial()) {
-                    sumSpec++;
-                }
-            }
-        }
-        return sumSpec;
 
+    private int getSpecialCount() {
+
+        long sumSpec = products.values().stream().flatMap(Collection::stream)
+                .filter(prodL -> prodL != null && prodL.isSpecial())
+                        .count();
+        return (int)sumSpec;
     }
 
 
